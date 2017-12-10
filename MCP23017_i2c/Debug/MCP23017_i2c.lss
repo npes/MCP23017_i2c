@@ -1,0 +1,281 @@
+
+MCP23017_i2c.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  0000021e  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         000001ca  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      00000030  00000000  00000000  0000021e  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000250  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000090  00000000  00000000  0000028c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000d6a  00000000  00000000  0000031c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000819  00000000  00000000  00001086  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000672  00000000  00000000  0000189f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000190  00000000  00000000  00001f14  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000046e  00000000  00000000  000020a4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000790  00000000  00000000  00002512  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 000000a0  00000000  00000000  00002ca2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   8:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  10:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  14:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  18:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  1c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  20:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  24:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  28:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  2c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  30:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  34:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  38:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  3c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  40:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  44:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  48:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  4c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  50:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  54:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  58:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  5c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  60:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  64:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+  74:	0e 94 8e 00 	call	0x11c	; 0x11c <main>
+  78:	0c 94 e3 00 	jmp	0x1c6	; 0x1c6 <_exit>
+
+0000007c <__bad_interrupt>:
+  7c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000080 <i2c_init>:
+	data[(length-1)] = i2c_read_nack();
+
+	i2c_stop();
+
+	return 0;
+}
+  80:	80 e2       	ldi	r24, 0x20	; 32
+  82:	80 93 b8 00 	sts	0x00B8, r24	; 0x8000b8 <__TEXT_REGION_LENGTH__+0x7e00b8>
+  86:	08 95       	ret
+
+00000088 <i2c_start>:
+  88:	ec eb       	ldi	r30, 0xBC	; 188
+  8a:	f0 e0       	ldi	r31, 0x00	; 0
+  8c:	10 82       	st	Z, r1
+  8e:	94 ea       	ldi	r25, 0xA4	; 164
+  90:	90 83       	st	Z, r25
+  92:	90 81       	ld	r25, Z
+  94:	99 23       	and	r25, r25
+  96:	ec f7       	brge	.-6      	; 0x92 <i2c_start+0xa>
+  98:	90 91 b9 00 	lds	r25, 0x00B9	; 0x8000b9 <__TEXT_REGION_LENGTH__+0x7e00b9>
+  9c:	98 7f       	andi	r25, 0xF8	; 248
+  9e:	98 30       	cpi	r25, 0x08	; 8
+  a0:	a1 f4       	brne	.+40     	; 0xca <i2c_start+0x42>
+  a2:	80 93 bb 00 	sts	0x00BB, r24	; 0x8000bb <__TEXT_REGION_LENGTH__+0x7e00bb>
+  a6:	84 e8       	ldi	r24, 0x84	; 132
+  a8:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7e00bc>
+  ac:	ec eb       	ldi	r30, 0xBC	; 188
+  ae:	f0 e0       	ldi	r31, 0x00	; 0
+  b0:	80 81       	ld	r24, Z
+  b2:	88 23       	and	r24, r24
+  b4:	ec f7       	brge	.-6      	; 0xb0 <i2c_start+0x28>
+  b6:	90 91 b9 00 	lds	r25, 0x00B9	; 0x8000b9 <__TEXT_REGION_LENGTH__+0x7e00b9>
+  ba:	98 7f       	andi	r25, 0xF8	; 248
+  bc:	98 31       	cpi	r25, 0x18	; 24
+  be:	39 f0       	breq	.+14     	; 0xce <i2c_start+0x46>
+  c0:	81 e0       	ldi	r24, 0x01	; 1
+  c2:	90 34       	cpi	r25, 0x40	; 64
+  c4:	29 f4       	brne	.+10     	; 0xd0 <i2c_start+0x48>
+  c6:	80 e0       	ldi	r24, 0x00	; 0
+  c8:	08 95       	ret
+  ca:	81 e0       	ldi	r24, 0x01	; 1
+  cc:	08 95       	ret
+  ce:	80 e0       	ldi	r24, 0x00	; 0
+  d0:	08 95       	ret
+
+000000d2 <i2c_write>:
+  d2:	80 93 bb 00 	sts	0x00BB, r24	; 0x8000bb <__TEXT_REGION_LENGTH__+0x7e00bb>
+  d6:	84 e8       	ldi	r24, 0x84	; 132
+  d8:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7e00bc>
+  dc:	ec eb       	ldi	r30, 0xBC	; 188
+  de:	f0 e0       	ldi	r31, 0x00	; 0
+  e0:	80 81       	ld	r24, Z
+  e2:	88 23       	and	r24, r24
+  e4:	ec f7       	brge	.-6      	; 0xe0 <i2c_write+0xe>
+  e6:	90 91 b9 00 	lds	r25, 0x00B9	; 0x8000b9 <__TEXT_REGION_LENGTH__+0x7e00b9>
+  ea:	98 7f       	andi	r25, 0xF8	; 248
+  ec:	81 e0       	ldi	r24, 0x01	; 1
+  ee:	98 32       	cpi	r25, 0x28	; 40
+  f0:	09 f4       	brne	.+2      	; 0xf4 <i2c_write+0x22>
+  f2:	80 e0       	ldi	r24, 0x00	; 0
+  f4:	08 95       	ret
+
+000000f6 <i2c_stop>:
+
+void i2c_stop(void)
+{
+	// transmit STOP condition
+	TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO);
+  f6:	84 e9       	ldi	r24, 0x94	; 148
+  f8:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7e00bc>
+  fc:	08 95       	ret
+
+000000fe <init_MCP23017>:
+	return 0;
+}
+
+void init_MCP23017 (void)
+{
+	i2c_start(MCP23017); //Select I2C address 0x40 (0b0100000)
+  fe:	80 e4       	ldi	r24, 0x40	; 64
+ 100:	0e 94 44 00 	call	0x88	; 0x88 <i2c_start>
+	i2c_write(IODIRA); // Select IODIRA register address (0x00)
+ 104:	80 e0       	ldi	r24, 0x00	; 0
+ 106:	0e 94 69 00 	call	0xd2	; 0xd2 <i2c_write>
+	i2c_write(0x00); // Set IODIRA to output
+ 10a:	80 e0       	ldi	r24, 0x00	; 0
+ 10c:	0e 94 69 00 	call	0xd2	; 0xd2 <i2c_write>
+	i2c_write(0x00); // Set IODIRB to output
+ 110:	80 e0       	ldi	r24, 0x00	; 0
+ 112:	0e 94 69 00 	call	0xd2	; 0xd2 <i2c_write>
+	i2c_stop(); //send stop bit
+ 116:	0e 94 7b 00 	call	0xf6	; 0xf6 <i2c_stop>
+ 11a:	08 95       	ret
+
+0000011c <main>:
+void init_MCP23017 (void);
+
+int main(void)
+{
+
+	i2c_init();
+ 11c:	0e 94 40 00 	call	0x80	; 0x80 <i2c_init>
+	init_MCP23017();
+ 120:	0e 94 7f 00 	call	0xfe	; 0xfe <init_MCP23017>
+	
+	while (1)
+	{
+		
+		i2c_start(MCP23017); //Select I2C address 0x40 (0b0100000)
+ 124:	80 e4       	ldi	r24, 0x40	; 64
+ 126:	0e 94 44 00 	call	0x88	; 0x88 <i2c_start>
+		i2c_write(GPIOB); // Select GPIOB register (0x13)
+ 12a:	83 e1       	ldi	r24, 0x13	; 19
+ 12c:	0e 94 69 00 	call	0xd2	; 0xd2 <i2c_write>
+		i2c_write(0xFF); // Set entire GPI0B port high
+ 130:	8f ef       	ldi	r24, 0xFF	; 255
+ 132:	0e 94 69 00 	call	0xd2	; 0xd2 <i2c_write>
+		i2c_stop(); //send stop bit
+ 136:	0e 94 7b 00 	call	0xf6	; 0xf6 <i2c_stop>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 13a:	2f e7       	ldi	r18, 0x7F	; 127
+ 13c:	8a e1       	ldi	r24, 0x1A	; 26
+ 13e:	96 e0       	ldi	r25, 0x06	; 6
+ 140:	21 50       	subi	r18, 0x01	; 1
+ 142:	80 40       	sbci	r24, 0x00	; 0
+ 144:	90 40       	sbci	r25, 0x00	; 0
+ 146:	e1 f7       	brne	.-8      	; 0x140 <main+0x24>
+ 148:	00 c0       	rjmp	.+0      	; 0x14a <main+0x2e>
+ 14a:	00 00       	nop
+		_delay_ms(250);
+		
+		i2c_start(MCP23017); //Select I2C address 0x40 (0b0100000)
+ 14c:	80 e4       	ldi	r24, 0x40	; 64
+ 14e:	0e 94 44 00 	call	0x88	; 0x88 <i2c_start>
+		i2c_write(GPIOA); // Select GPIOA register (0x12)
+ 152:	82 e1       	ldi	r24, 0x12	; 18
+ 154:	0e 94 69 00 	call	0xd2	; 0xd2 <i2c_write>
+		i2c_write(0xFF); // Set entire GPI0A port high
+ 158:	8f ef       	ldi	r24, 0xFF	; 255
+ 15a:	0e 94 69 00 	call	0xd2	; 0xd2 <i2c_write>
+		i2c_stop(); //send stop bit
+ 15e:	0e 94 7b 00 	call	0xf6	; 0xf6 <i2c_stop>
+ 162:	2f e7       	ldi	r18, 0x7F	; 127
+ 164:	8a e1       	ldi	r24, 0x1A	; 26
+ 166:	96 e0       	ldi	r25, 0x06	; 6
+ 168:	21 50       	subi	r18, 0x01	; 1
+ 16a:	80 40       	sbci	r24, 0x00	; 0
+ 16c:	90 40       	sbci	r25, 0x00	; 0
+ 16e:	e1 f7       	brne	.-8      	; 0x168 <main+0x4c>
+ 170:	00 c0       	rjmp	.+0      	; 0x172 <main+0x56>
+ 172:	00 00       	nop
+		_delay_ms(250);
+		
+		i2c_start(MCP23017); //Select I2C address 0x40 (0b0100000)
+ 174:	80 e4       	ldi	r24, 0x40	; 64
+ 176:	0e 94 44 00 	call	0x88	; 0x88 <i2c_start>
+		i2c_write(GPIOB); // Select GPIOB register (0x13)
+ 17a:	83 e1       	ldi	r24, 0x13	; 19
+ 17c:	0e 94 69 00 	call	0xd2	; 0xd2 <i2c_write>
+		i2c_write(0x00); // Set entire GPI0B port low
+ 180:	80 e0       	ldi	r24, 0x00	; 0
+ 182:	0e 94 69 00 	call	0xd2	; 0xd2 <i2c_write>
+		i2c_stop(); //send stop bit
+ 186:	0e 94 7b 00 	call	0xf6	; 0xf6 <i2c_stop>
+ 18a:	2f e7       	ldi	r18, 0x7F	; 127
+ 18c:	8a e1       	ldi	r24, 0x1A	; 26
+ 18e:	96 e0       	ldi	r25, 0x06	; 6
+ 190:	21 50       	subi	r18, 0x01	; 1
+ 192:	80 40       	sbci	r24, 0x00	; 0
+ 194:	90 40       	sbci	r25, 0x00	; 0
+ 196:	e1 f7       	brne	.-8      	; 0x190 <main+0x74>
+ 198:	00 c0       	rjmp	.+0      	; 0x19a <main+0x7e>
+ 19a:	00 00       	nop
+		
+		_delay_ms(250);
+		i2c_start(MCP23017); //Select I2C address 0x40 (0b0100000)
+ 19c:	80 e4       	ldi	r24, 0x40	; 64
+ 19e:	0e 94 44 00 	call	0x88	; 0x88 <i2c_start>
+		i2c_write(GPIOA); // Select GPIOA register (0x12)
+ 1a2:	82 e1       	ldi	r24, 0x12	; 18
+ 1a4:	0e 94 69 00 	call	0xd2	; 0xd2 <i2c_write>
+		i2c_write(0x00); // Set entire GPI0A port low
+ 1a8:	80 e0       	ldi	r24, 0x00	; 0
+ 1aa:	0e 94 69 00 	call	0xd2	; 0xd2 <i2c_write>
+		i2c_stop(); //send stop bit
+ 1ae:	0e 94 7b 00 	call	0xf6	; 0xf6 <i2c_stop>
+ 1b2:	2f e7       	ldi	r18, 0x7F	; 127
+ 1b4:	8a e1       	ldi	r24, 0x1A	; 26
+ 1b6:	96 e0       	ldi	r25, 0x06	; 6
+ 1b8:	21 50       	subi	r18, 0x01	; 1
+ 1ba:	80 40       	sbci	r24, 0x00	; 0
+ 1bc:	90 40       	sbci	r25, 0x00	; 0
+ 1be:	e1 f7       	brne	.-8      	; 0x1b8 <main+0x9c>
+ 1c0:	00 c0       	rjmp	.+0      	; 0x1c2 <main+0xa6>
+ 1c2:	00 00       	nop
+ 1c4:	af cf       	rjmp	.-162    	; 0x124 <main+0x8>
+
+000001c6 <_exit>:
+ 1c6:	f8 94       	cli
+
+000001c8 <__stop_program>:
+ 1c8:	ff cf       	rjmp	.-2      	; 0x1c8 <__stop_program>
